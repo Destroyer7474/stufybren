@@ -10,8 +10,115 @@ namespace SpriteKind {
     export const inviss5 = SpriteKind.create()
     export const inviss6 = SpriteKind.create()
     export const inviss7 = SpriteKind.create()
+    export const rightPro = SpriteKind.create()
 }
 sprites.onOverlap(SpriteKind.leftPro, SpriteKind.LeftDIELine, function (sprite, otherSprite) {
+    info.changeScoreBy(-200)
+    sprite.destroy()
+})
+function leftForever () {
+    if (leftPressed == 0) {
+        if (AmountOfLeft == 0) {
+            if (controller.left.isPressed()) {
+                if (left.overlapsWith(invis6)) {
+                    left.destroy()
+                    info.changeScoreBy(-200)
+                    AmountOfLeft += 1
+                }
+                if (left.overlapsWith(invis5)) {
+                    left.destroy()
+                    info.changeScoreBy(-200)
+                    AmountOfLeft += 1
+                }
+                if (left.overlapsWith(invis4)) {
+                    left.destroy()
+                    info.changeScoreBy(-200)
+                    AmountOfLeft += 1
+                }
+                if (left.overlapsWith(invis3)) {
+                    left.destroy()
+                    info.changeScoreBy(-200)
+                    AmountOfLeft += 1
+                }
+                if (left.overlapsWith(invis2)) {
+                    left.destroy()
+                    info.changeScoreBy(-200)
+                    AmountOfLeft += 1
+                }
+                if (left.overlapsWith(invis)) {
+                    left.destroy()
+                    info.changeScoreBy(-200)
+                    AmountOfLeft += 1
+                }
+            }
+        }
+    }
+}
+function rightForever () {
+    if (rightPressed == 0) {
+        if (AmountOfRight == 0) {
+            if (controller.right.isPressed()) {
+                if (right.overlapsWith(invis6)) {
+                    right.destroy()
+                    info.changeScoreBy(-200)
+                    AmountOfRight += 1
+                }
+                if (right.overlapsWith(invis5)) {
+                    right.destroy()
+                    info.changeScoreBy(-200)
+                    AmountOfRight += 1
+                }
+                if (right.overlapsWith(invis4)) {
+                    right.destroy()
+                    info.changeScoreBy(-200)
+                    AmountOfRight += 1
+                }
+                if (right.overlapsWith(invis3)) {
+                    right.destroy()
+                    info.changeScoreBy(-200)
+                    AmountOfRight += 1
+                }
+                if (right.overlapsWith(invis2)) {
+                    right.destroy()
+                    info.changeScoreBy(-200)
+                    AmountOfRight += 1
+                }
+                if (right.overlapsWith(invis3)) {
+                    right.destroy()
+                    info.changeScoreBy(-200)
+                    AmountOfRight += 1
+                }
+            }
+        }
+    }
+}
+function createRight () {
+    right = sprites.create(img`
+2 2 2 2 2 2 2 2 
+2 2 2 2 2 2 2 2 
+2 2 2 2 2 2 2 2 
+2 2 2 2 2 2 2 2 
+2 2 2 2 2 2 2 2 
+2 2 2 2 2 2 2 2 
+2 2 2 2 1 2 2 2 
+2 2 2 2 1 1 2 2 
+2 1 1 1 1 1 1 2 
+2 2 2 2 1 1 2 2 
+2 2 2 2 1 2 2 2 
+2 2 2 2 2 2 2 2 
+2 2 2 2 2 2 2 2 
+2 2 2 2 2 2 2 2 
+2 2 2 2 2 2 2 2 
+2 2 2 2 2 2 2 2 
+`, SpriteKind.rightPro)
+    right.setPosition(86, 0)
+    right.setVelocity(0, 80)
+}
+function sendRight () {
+    pause(1000)
+    createRight()
+}
+sprites.onOverlap(SpriteKind.rightPro, SpriteKind.LeftDIELine, function (sprite, otherSprite) {
     info.changeScoreBy(-200)
     sprite.destroy()
 })
@@ -23,6 +130,15 @@ sprites.onOverlap(SpriteKind.leftPro, SpriteKind.center, function (sprite, other
         info.changeScoreBy(100)
     }
     leftPressed = 1
+})
+sprites.onOverlap(SpriteKind.rightPro, SpriteKind.center, function (sprite, otherSprite) {
+    AmountOfRight = 0
+    rightPressed = 1
+    if (controller.right.isPressed()) {
+        sprite.destroy()
+        info.changeScoreBy(100)
+    }
+    rightPressed = 1
 })
 function createLeft () {
     left = sprites.create(img`
@@ -65,6 +181,8 @@ function gameStart () {
     aiming.setPosition(80, 100)
     AmountOfLeft = 0
     leftPressed = 0
+    AmountOfRight = 0
+    rightPressed = 0
     LeftDieLine = sprites.create(img`
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
 `, SpriteKind.LeftDIELine)
@@ -72,6 +190,7 @@ function gameStart () {
     info.setScore(0)
     INVISSSS()
     sendLeft()
+    sendRight()
 }
 function INVISSSS () {
     invis = sprites.create(img`
@@ -178,17 +297,20 @@ function INVISSSS () {
 `, SpriteKind.inviss6)
     invis6.setPosition(80, 80)
 }
-let invis6: Sprite = null
-let invis5: Sprite = null
-let invis4: Sprite = null
-let invis3: Sprite = null
-let invis2: Sprite = null
-let invis: Sprite = null
 let LeftDieLine: Sprite = null
 let aiming: Sprite = null
+let right: Sprite = null
+let AmountOfRight = 0
+let rightPressed = 0
+let invis: Sprite = null
+let invis2: Sprite = null
+let invis3: Sprite = null
+let invis4: Sprite = null
+let invis5: Sprite = null
+let invis6: Sprite = null
 let left: Sprite = null
-let leftPressed = 0
 let AmountOfLeft = 0
+let leftPressed = 0
 scene.setBackgroundImage(img`
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 a a a a a a a a a a a a a a a a a a a a 
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 a a a a a a a a a a a a a a a a a a a a 
@@ -439,43 +561,8 @@ f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f 
 game.showLongText("press A to start", DialogLayout.Bottom)
 gameStart()
 forever(function () {
-    if (leftPressed == 0) {
-        if (AmountOfLeft == 0) {
-            if (controller.left.isPressed()) {
-                if (left.overlapsWith(invis6)) {
-                    left.destroy()
-                    info.changeScoreBy(-200)
-                    AmountOfLeft += 1
-                }
-                if (left.overlapsWith(invis5)) {
-                    left.destroy()
-                    info.changeScoreBy(-200)
-                    AmountOfLeft += 1
-                }
-                if (left.overlapsWith(invis4)) {
-                    left.destroy()
-                    info.changeScoreBy(-200)
-                    AmountOfLeft += 1
-                }
-                if (left.overlapsWith(invis3)) {
-                    left.destroy()
-                    info.changeScoreBy(-200)
-                    AmountOfLeft += 1
-                }
-                if (left.overlapsWith(invis2)) {
-                    left.destroy()
-                    info.changeScoreBy(-200)
-                    AmountOfLeft += 1
-                }
-                if (left.overlapsWith(invis)) {
-                    left.destroy()
-                    info.changeScoreBy(-200)
-                    AmountOfLeft += 1
-                }
-            }
-        }
-    }
+    rightForever()
 })
 forever(function () {
-	
+    leftForever()
 })
